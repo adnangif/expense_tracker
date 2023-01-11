@@ -35,10 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title_container"
         android:src="@drawable/ic_baseline_done_24"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp"
         android:visibility="invisible"
-        android:layout_alignBottom="@+id/save"
+        android:layout_alignParentEnd="true"
         />
 
     <ImageView
@@ -46,44 +46,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_container"
-        android:src="@drawable/ic_sharp_pending_actions_24"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_alignBottom="@+id/save"
-        />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_sharp_pending_actions_24" />
 
-    <ImageView
-        android:id="@+id/delete"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_below="@id/title_container"
-        android:src="@drawable/ic_baseline_delete_forever_24"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:layout_alignBottom="@+id/save"
-        />
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/save"
+        android:text="Delete this record"
+        android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"
-        app:icon="@drawable/ic_baseline_done_24"
-        android:layout_below="@id/title_container"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-
+        android:src="@drawable/ic_baseline_delete_forever_24"
+        android:layout_below="@+id/title_container"
+        android:backgroundTint="#FFB300"
+        app:rippleColor="#C0CA33"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
         />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_below="@+id/save"
+        android:layout_below="@+id/title_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
+        android:layout_marginTop="50dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_save_24"
+        android:layout_above="@+id/btn_floating"
+        android:layout_alignEnd="@+id/btn_floating"
+        android:layout_marginBottom="20dp"
+
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_floating"
+        style="@style/Widget.Material3.FloatingActionButton.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_round_add_24"

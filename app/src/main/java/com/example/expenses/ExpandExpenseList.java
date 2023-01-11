@@ -2,31 +2,26 @@ package com.example.expenses;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -36,13 +31,13 @@ public class ExpandExpenseList extends AppCompatActivity {
 
 
     RecyclerView recyclerView;
-    FloatingActionButton fab;
+    FloatingActionButton btn_add,btn_save;
+    MaterialButton delete_icon;
     EditText title_of_expense;
     ExpenseDatabase expenseDatabase;
-    MaterialButton btn_save;
     Expense expense;
     ExpandedItemAdapter expandedItemAdapter;
-    ImageView done_icon,pending_save_icon,delete_icon;
+    ImageView done_icon,pending_save_icon;
 
     public ExpandExpenseModelView model;
 
@@ -57,7 +52,7 @@ public class ExpandExpenseList extends AppCompatActivity {
         delete_icon = findViewById(R.id.delete);
         expense = (Expense) getIntent().getSerializableExtra("Expense");
         recyclerView = findViewById(R.id.recycler_view);
-        fab =findViewById(R.id.btn_floating);
+        btn_add =findViewById(R.id.btn_floating);
         title_of_expense = findViewById(R.id.title_of_expense);
         expenseDatabase = ExpenseDatabase.getInstance(getApplicationContext());
         btn_save = findViewById(R.id.save);
@@ -105,7 +100,7 @@ public class ExpandExpenseList extends AppCompatActivity {
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
@@ -171,13 +166,31 @@ public class ExpandExpenseList extends AppCompatActivity {
         delete_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Executors.newSingleThreadExecutor().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        expenseDatabase.expenseDao().deleteOne(expense);
-                    }
-                });
-                onBackPressed();
+
+                new MaterialAlertDialogBuilder(ExpandExpenseList.this)
+                                .setMessage("You will lose all your data. Do you want to delete this record?")
+                                        .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.cancel();
+                                            }
+                                        })
+                                                .setNegativeButton("Sure", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        Executors.newSingleThreadExecutor().execute(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                expenseDatabase.expenseDao().deleteOne(expense);
+                                                            }
+                                                        });
+                                                        onBackPressed();
+
+                                                    }
+                                                })
+                        .create().show();
+
+
 
 
             }
