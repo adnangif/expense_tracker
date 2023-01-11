@@ -8,18 +8,20 @@
         android:id="@+id/card_mini"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         style="@style/Widget.Material3.CardView.Elevated"
 
 
         >
         <RelativeLayout
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/linear"
+            android:layout_below="@+id/time_of_cost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputLayout
@@ -66,15 +68,16 @@
 
         </LinearLayout>
         <TextView
-            android:layout_marginStart="30dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
 
             android:id="@+id/time_of_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="time of the cost"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/md_theme_light_primary"
-            android:layout_below="@+id/linear"/>
+            />
 
 
         </RelativeLayout>
