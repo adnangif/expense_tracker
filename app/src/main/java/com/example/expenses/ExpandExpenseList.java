@@ -104,8 +104,8 @@ public class ExpandExpenseList extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-                expense.transaction_cause.add("new title");
-                expense.mini_transactions.add("0");
+                expense.transaction_cause.add("");
+                expense.mini_transactions.add("");
                 expense.time_of_creation.add(date);
 
                 expandedItemAdapter.setE(expense);
